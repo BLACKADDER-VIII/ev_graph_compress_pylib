@@ -1,3 +1,0 @@
-/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/build/CMakeFiles/rebuild_cache.dir
-/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/build/CMakeFiles/edit_cache.dir
-/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/build/CMakeFiles/nd_compress.dir
