@@ -1,0 +1,3 @@
+/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/build/CMakeFiles/rebuild_cache.dir
+/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/build/CMakeFiles/edit_cache.dir
+/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/build/CMakeFiles/nd_compress.dir
