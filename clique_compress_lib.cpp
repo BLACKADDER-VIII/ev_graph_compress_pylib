@@ -225,7 +225,7 @@ public:
 
     ~clique_compressor() {
         igraph_destroy(&graph);
-        igraph_destroy(&compressed_graph);
+        // igraph_destroy(&compressed_graph);
         igraph_destroy(&alltoall_sg);
         igraph_strvector_destroy(&mpi_function_map);
         igraph_vector_destroy(&process_id_map);

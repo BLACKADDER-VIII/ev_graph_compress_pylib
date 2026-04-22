@@ -277,7 +277,7 @@ public:
 
     ~bicliq_compressor() {
         igraph_destroy(&graph);
-        igraph_destroy(&compressed_graph);
+        // igraph_destroy(&compressed_graph);
         igraph_destroy(&induced_sg);
         igraph_vector_destroy(&attr_proc_id);
         igraph_strvector_destroy(&attr_mpi_func);

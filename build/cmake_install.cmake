@@ -1,4 +1,4 @@
-# Install script for directory: /home/exouser/Enzo-ND/Enzo_ND_Detect/pylib
+# Install script for directory: /home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

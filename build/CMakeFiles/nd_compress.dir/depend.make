@@ -4,6 +4,7 @@
 CMakeFiles/nd_compress.dir/compress_bindings.cpp.o: ../bicliq_compress_lib.cpp
 CMakeFiles/nd_compress.dir/compress_bindings.cpp.o: ../clique_compress_lib.cpp
 CMakeFiles/nd_compress.dir/compress_bindings.cpp.o: ../compress_bindings.cpp
+CMakeFiles/nd_compress.dir/compress_bindings.cpp.o: ../op_add_lvl_lib.cpp
 CMakeFiles/nd_compress.dir/compress_bindings.cpp.o: ../op_compress_lib.cpp
 CMakeFiles/nd_compress.dir/compress_bindings.cpp.o: /home/exouser/miniconda3/include/python3.13/Python.h
 CMakeFiles/nd_compress.dir/compress_bindings.cpp.o: /home/exouser/miniconda3/include/python3.13/abstract.h

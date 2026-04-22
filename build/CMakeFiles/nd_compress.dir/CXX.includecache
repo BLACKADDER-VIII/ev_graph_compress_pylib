@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/bicliq_compress_lib.cpp
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/bicliq_compress_lib.cpp
 omp.h
 -
 vector
@@ -24,7 +24,7 @@ set
 stdio.h
 -
 
-/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/clique_compress_lib.cpp
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/clique_compress_lib.cpp
 omp.h
 -
 vector
@@ -44,7 +44,7 @@ set
 stdio.h
 -
 
-/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/compress_bindings.cpp
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/compress_bindings.cpp
 pybind11/pybind11.h
 -
 pybind11/stl.h
@@ -58,13 +58,23 @@ igraph.h
 igraph_attributes.h
 -
 clique_compress_lib.cpp
-/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/clique_compress_lib.cpp
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/clique_compress_lib.cpp
 op_compress_lib.cpp
-/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/op_compress_lib.cpp
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/op_compress_lib.cpp
 bicliq_compress_lib.cpp
-/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/bicliq_compress_lib.cpp
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/bicliq_compress_lib.cpp
+op_add_lvl_lib.cpp
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/op_add_lvl_lib.cpp
 
-/home/exouser/Enzo-ND/Enzo_ND_Detect/pylib/op_compress_lib.cpp
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/op_add_lvl_lib.cpp
+vector
+-
+igraph.h
+-
+igraph_attributes.h
+-
+
+/home/exouser/Enzo-ND/Enzo_ND_Detect/submodules/ev_graph_compress_pylib/op_compress_lib.cpp
 omp.h
 -
 vector

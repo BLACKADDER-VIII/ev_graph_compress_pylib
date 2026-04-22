@@ -11,6 +11,7 @@ extern "C" {
 #include "clique_compress_lib.cpp"
 #include "op_compress_lib.cpp"
 #include "bicliq_compress_lib.cpp"
+#include "op_add_lvl_lib.cpp"
 
 namespace py = pybind11;
 
@@ -27,20 +28,25 @@ static igraph_t load_graph(const std::string& path) {
     return g;
 }
 
-static std::vector<igraph_integer_t> compress(const std::string& path, int c_lvl, int num_proc){
-    assert(c_lvl>0 && c_lvl <=3 && "c_lvl needs to be between 1 and 3");
+static std::pair<std::vector<igraph_integer_t>, std::pair<std::unordered_map<std::string, std::vector<igraph_integer_t>>, std::unordered_map< std::string, std::vector<std::string>>>> compress(const std::string& path, int c_lvl, int num_proc){
+    assert(c_lvl>0 && c_lvl <=3 && "c_lvl needs to be between 0 and 2");
     assert(num_proc>0 && "num_proc cannot be less than 1");
-
+    std::unordered_map<std::string, std::vector<igraph_integer_t>> numeric_attrs;
+    std::unordered_map<std::string, std::vector<std::string>> str_attrs;
     igraph_t g = load_graph(path);
-    op_compressor op_comp(g, num_proc);
-    g = op_comp.compress();
-    c_lvl--;
+    if(c_lvl){
+        op_compressor op_comp(g, num_proc);
+        g = op_comp.compress();
+        op_add_lvl(&g, num_proc);
+        c_lvl--;
+    }
+    
     if (c_lvl) {
         clique_compressor cliq_comp(g, num_proc);
         g = cliq_comp.compress();
         c_lvl--;
     }
-    if(c_lvl){
+    if(c_lvl ){
         bicliq_compressor bicliq_comp(g, num_proc);
         g = bicliq_comp.compress();
     }
@@ -48,8 +54,52 @@ static std::vector<igraph_integer_t> compress(const std::string& path, int c_lvl
     igraph_vector_int_init(&edges, 0);
     igraph_get_edgelist(&g, &edges, 0);
     std::vector<igraph_integer_t> edge_vec(VECTOR(edges), VECTOR(edges) + igraph_vector_int_size(&edges));
+    igraph_vector_t proc_id, num_funcs, lvl;
+    igraph_strvector_t mpi_func, isend_seq, ev_nodes;
+    
+    igraph_vector_init(&lvl, 0);
+    igraph_vector_init(&proc_id, 0);
+    igraph_vector_init(&num_funcs, 0);
+    igraph_strvector_init(&mpi_func, 0);
+    igraph_strvector_init(&isend_seq, 0);
+    igraph_strvector_init(&ev_nodes, 0);
+
+    VANV(&g, "process_id", &proc_id);
+    VANV(&g, "num_main_func", &num_funcs);
+    VASV(&g, "mpi_function", &mpi_func);
+    VASV(&g, "isend_seq", &isend_seq);
+    VASV(&g, "ev_nodes", &ev_nodes);
+    VANV(&g, "lvl", &lvl);
+
+    std::vector<igraph_integer_t> pid_v(VECTOR(proc_id), VECTOR(proc_id)+igraph_vector_size(&proc_id));
+    std::vector<igraph_integer_t> nf_v(VECTOR(num_funcs), VECTOR(num_funcs)+igraph_vector_size(&num_funcs));
+    std::vector<igraph_integer_t> lvl_v(VECTOR(lvl), VECTOR(lvl)+igraph_vector_size(&lvl));
+
+    std::vector<std::string> mf_v, is_v, en_v;
+    for (igraph_integer_t i = 0; i < igraph_strvector_size(&mpi_func); i++)
+        mf_v.push_back(igraph_strvector_get(&mpi_func, i));
+    for (igraph_integer_t i = 0; i < igraph_strvector_size(&isend_seq); i++)
+        is_v.push_back(igraph_strvector_get(&isend_seq, i));
+    for (igraph_integer_t i = 0; i < igraph_strvector_size(&ev_nodes); i++)
+        en_v.push_back(igraph_strvector_get(&ev_nodes, i));
+
+    numeric_attrs["process_id"] = pid_v;
+    numeric_attrs["num_main_func"] = nf_v;
+    str_attrs["mpi_function"] = mf_v;
+    str_attrs["isend_seq"] = is_v;
+    str_attrs["ev_nodes"] = en_v;
+    numeric_attrs["lvl"] = lvl_v;
+
+
     igraph_vector_int_destroy(&edges);
-    return edge_vec;
+    igraph_vector_destroy(&proc_id);
+    igraph_vector_destroy(&num_funcs);
+    igraph_strvector_destroy(&mpi_func);
+    igraph_strvector_destroy(&isend_seq);
+    igraph_strvector_destroy(&ev_nodes);
+    igraph_vector_destroy(&lvl);
+    igraph_destroy(&g);
+    return {edge_vec, {numeric_attrs, str_attrs}};
 }
 
 

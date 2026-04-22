@@ -209,7 +209,7 @@ public:
 
     ~op_compressor() {
         igraph_destroy(&graph);
-        igraph_destroy(&compressed_graph);
+        //igraph_destroy(&compressed_graph);
         igraph_strvector_destroy(&mpi_function_map);
         igraph_vector_destroy(&process_id_map);
         igraph_vector_destroy(&atr_proc_id);
