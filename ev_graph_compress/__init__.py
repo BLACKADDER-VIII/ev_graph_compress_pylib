@@ -1,10 +1,9 @@
-import sys; sys.path.append("build")
-import nd_compress
+from . import nd_compress
 import igraph as ig
 
 def compress(graph_path, c_lvl, num_proc):
-    assert(c_lvl>0 and c_lvl<=3, "c_lvl needs to be between 1 and 3")
-    assert(num_proc>0, "num_proc needs to be more than 0")
+    assert 0 < c_lvl <= 3, "c_lvl must be between 1 and 3"
+    assert num_proc > 0, "num_proc must be greater than 0"
     edges, (n_attr_dict, s_attr_dict) = nd_compress.compress(graph_path, c_lvl, num_proc)
     g = ig.Graph(edges, directed=True)
     for attr in n_attr_dict:

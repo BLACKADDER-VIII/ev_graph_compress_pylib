@@ -37,3 +37,5 @@ target_link_libraries(nd_compress PRIVATE
     ${IGRAPH_LIBRARIES}
     ${LIBXML2_LIBRARIES}
 )
+
+install(TARGETS nd_compress DESTINATION ev_graph_compress)
