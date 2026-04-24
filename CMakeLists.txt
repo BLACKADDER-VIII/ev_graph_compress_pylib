@@ -11,6 +11,7 @@ find_package(PkgConfig REQUIRED)
 # Request shared libs only to avoid LTO-compiled static igraph causing
 # R_X86_64_TPOFF32 relocation errors on its hidden TLS symbols.
 set(CMAKE_FIND_LIBRARY_SUFFIXES .so)
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 pkg_check_modules(IGRAPH REQUIRED igraph)
 pkg_check_modules(LIBXML2 REQUIRED libxml-2.0)
 
@@ -38,4 +39,4 @@ target_link_libraries(nd_compress PRIVATE
     ${LIBXML2_LIBRARIES}
 )
 
-install(TARGETS nd_compress DESTINATION ev_graph_compress)
+install(TARGETS nd_compress DESTINATION ev_graph_compress/build)
