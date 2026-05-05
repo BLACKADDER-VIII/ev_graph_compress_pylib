@@ -1,6 +1,11 @@
+import sys
+import os
+_here = os.path.dirname(__file__)
+sys.path.insert(0, _here)
+sys.path.insert(0, os.path.join(_here, "build"))
+
 import numpy as np
 import igraph as ig
-import sys; sys.path.append("build")
 import nd_compress
 import meta_graph_compress_lib
 

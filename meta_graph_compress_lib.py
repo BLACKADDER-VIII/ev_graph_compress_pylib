@@ -75,15 +75,18 @@ def get_meta_graph(g, NUM_PROCS):
     meta_node_mpi_string_map = []
     meta_node_isend_seq_map = []
     meta_node_lvl_map = []
+    meta_node_evg_node_map = []
     for m in meta_node_to_graph_map:
         sg = g.subgraph(m)
         order = sg.topological_sorting()    # To get the right order of MPI func as IDs are not topological order preserved
         curr_str = ""
         isend_str = ""
+        evg_node_str = ""
         for n in order:
             vid = sg.vs[n]['orig_id']
             curr_str += mpi_enc_map[g.vs[vid]['mpi_function']]
             curr_str += str(int(g.vs[vid]['num_main_func']))
+            evg_node_str += sg.vs[n]['ev_nodes'] if evg_node_str == "" else "_" + sg.vs[n]['ev_nodes']
             if len(sg.vs[n]['isend_seq'])>0:
                 if len(isend_str) > 0:
                     isend_str += "_" + sg.vs[n]['isend_seq']
@@ -92,6 +95,7 @@ def get_meta_graph(g, NUM_PROCS):
         meta_node_mpi_string_map.append(curr_str)
         meta_node_isend_seq_map.append(isend_str)
         meta_node_lvl_map.append(sg.vs[order[0]]['lvl'])
+        meta_node_evg_node_map.append(evg_node_str)
 
     # Drawing Edges
 
@@ -108,6 +112,7 @@ def get_meta_graph(g, NUM_PROCS):
     meta_g.vs['process_id'] = meta_node_process_id_map
     meta_g.vs['isend_seq'] = meta_node_isend_seq_map
     meta_g.vs['lvl'] = meta_node_lvl_map
+    meta_g.vs['ev_nodes'] = meta_node_evg_node_map
     return meta_g
 
 def meta_graph_add_lvl(g, NUM_PROC):
