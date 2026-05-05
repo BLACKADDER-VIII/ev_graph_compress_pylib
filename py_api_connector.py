@@ -9,7 +9,7 @@ import igraph as ig
 import nd_compress
 import meta_graph_compress_lib
 
-def compress(graph_path, c_lvl, num_proc, meta=True):
+def compress(graph_path,num_proc, c_lvl , meta=True):
     assert c_lvl>0 and c_lvl<=3, "c_lvl needs to be between 1 and 3"
     assert num_proc>0, "num_proc needs to be more than 0"
     edges_l, (n_attr_dict, s_attr_dict) = nd_compress.compress(graph_path, c_lvl, num_proc)
